@@ -1,27 +1,39 @@
 <script lang="ts" setup>
-  const auth = useAuthStore()
+const { $sanctumAuth } = useNuxtApp()
+const router = useRouter()
+
+const logout = async () => {
+  await $sanctumAuth.logout(
+    // optional callback function
+    (data) => {
+      console.log(data)
+      router.push('/')
+    }
+  )
+}
 </script>
 
 <template>
   <div>
-    <div>
-      {{ auth.isLoggedIn }}
-    </div>
     <ul>
       <li>
         <NuxtLink to="/">Home</NuxtLink>
       </li>
 
       <li>
-        <NuxtLink to="/user">User</NuxtLink>
+        <NuxtLink to="/about">About</NuxtLink>
       </li>
 
       <li>
-        <NuxtLink to="/login">Login</NuxtLink>
+        <NuxtLink to="/account/user">User</NuxtLink>
       </li>
 
       <li>
-        <button @click="navigateTo('/logout', {replace: true})">Logout</button>
+        <NuxtLink to="/auth/login">Login</NuxtLink>
+      </li>
+
+      <li>
+        <button @click="logout">Logout</button>
       </li>
     </ul>
     <slot />
