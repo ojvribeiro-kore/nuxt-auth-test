@@ -9,4 +9,9 @@ export default defineNuxtConfig({
   },
 
   imports: { dirs: ["stores"] },
+
+  routeRules: {
+    "/login": { ssr: false },
+    "/user": { ssr: false },
+  },
 });
